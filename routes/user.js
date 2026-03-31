@@ -13,10 +13,16 @@ router.post("/signup" , wrapAsync(async (req,res)=>{
         let {username , email ,password} = req.body;
         const newUser = new User({email , username});
         const registerdUser =await User.register(newUser , password);
-        
-        req.flash("success" , "Welcome to WanderLust");
-        res.redirect("/listings");
-        
+        req.login(registerdUser , (err)=>{
+            if(err){
+                return next(err);
+            }
+            else{
+
+                req.flash("success" , "Welcome to WanderLust");
+                res.redirect("/listings");
+            }
+        });
     }catch(err){
         req.flash("error" , err.message);
         res.redirect("/signup");
@@ -30,10 +36,21 @@ router.get("/login" , (req,res)=>{
 });
 
 router.post("/login" ,passport.authenticate("local" , {failureRedirect:'/login' , failureFlash:true }), async (req,res)=>{
-    res.flash("Welcome back to WanderLust! You are logged in!");
+    req.flash("Welcome back to WanderLust! You are logged in!");
     res.redirect("/listings");
 });
 
+router.get("/logout" , (req,res , next)=>{
+    req.logout((err)=>{
+        if(err){
+           return next(err);
+        }
+        else{
+            req.flash("success" , "You have logged out!");
+            res.redirect("/listings");
+        }
+    })
+})
 
 
 module.exports = router;
