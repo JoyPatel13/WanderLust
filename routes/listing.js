@@ -9,25 +9,20 @@ const { populate } = require('../models/review.js');
 
 const listingController = require('../controllers/listings.js');
 
-//Index Route 
-router.get("/" , wrapAsync(listingController.index));
+router.route("/")
+.get(wrapAsync(listingController.index))
+.post(isLoggedIn, validateListing, wrapAsync(listingController.createListing));
 
-//New Route
 router.get("/new", isLoggedIn,listingController.renderNewForm);
 
-//show route
-router.get("/:id" , wrapAsync(listingController.showListing));
+router.route("/:id")
+.get(wrapAsync(listingController.showListing))
+.put(isLoggedIn, isOwner, validateListing, wrapAsync(listingController.updateListing))
+.delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing))
 
-//Create Route
-router.post("/",isLoggedIn, validateListing, wrapAsync(listingController.createListing));
+//New Route
 
 //Edit Route
 router.get('/:id/edit',isLoggedIn, isOwner,wrapAsync(listingController.renderEditForm));
-
-//Update Route
-router.put("/:id",isLoggedIn, isOwner, validateListing, wrapAsync(listingController.updateListing));
-
-//Delete Route 
-router.delete("/:id" , isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
 module.exports = router;
