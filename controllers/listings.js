@@ -37,6 +37,7 @@ module.exports.createListing = async (req, res, next) => {
         throw new ExpressError(400, result.error);
 
     }
+    
     let url = req.file.path;
     let filename = req.file.filename;
     console.log(url, "..", filename);
@@ -44,6 +45,7 @@ module.exports.createListing = async (req, res, next) => {
         ...req.body.listing,
 
     });
+    
     newListing.owner = req.user._id;
     newListing.image = { url, filename };
     await newListing.save();
