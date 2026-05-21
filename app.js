@@ -121,13 +121,8 @@ process.on('unhandledRejection', (err) => {
     console.log('Unhandled Rejection:', err.message);
 });
 
-let port = process.env.PORT || 8080;  // ✅ fix port
+let port = process.env.PORT || 8080;  
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 
-let port = process.env.PORT || 8080;
-app.listen(port,()=>{
-    console.log(`Server listening on port ${port} `);
-
-});
