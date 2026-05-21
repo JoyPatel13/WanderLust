@@ -36,7 +36,7 @@ app.engine('ejs' , ejsMate);
 app.use(express.static(path.join(__dirname,"/public")))
 
 const store =MongoStore.create({
-    mongoUrl: MONGO_URL,
+    mongoUrl: dbUrl,
     crypto:{
         secret :process.env.SECRET,
     },
@@ -67,7 +67,7 @@ main().then(() => {
 })
 
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 app.use(session(sessionOptions));
 app.use(flash());
