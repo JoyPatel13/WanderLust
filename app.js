@@ -112,8 +112,8 @@ app.use((err,req,res ,next ) =>{
     res.status(statusCode).render("error.ejs" , {err , message});
 
 })
-
-app.listen(8080,()=>{
+let port = 8080;
+app.listen(port,()=>{
     console.log(`Server listening on port ${port} `);
 
 });
