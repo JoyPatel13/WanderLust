@@ -38,14 +38,6 @@ Wanderlust is a full-stack travel accommodation web application inspired by Airb
 * Wishlist and favorites feature
 * Admin dashboard
 
-## Installation ⚙️
-
-```bash
-git clone <your-repo-link>
-cd wanderlust
-npm install
-npm start
-```
 
 ## Contribution 🤝
 
