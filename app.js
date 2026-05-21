@@ -112,6 +112,20 @@ app.use((err,req,res ,next ) =>{
     res.status(statusCode).render("error.ejs" , {err , message});
 
 })
+
+process.on('uncaughtException', (err) => {
+    console.log('Uncaught Exception:', err.message);
+});
+
+process.on('unhandledRejection', (err) => {
+    console.log('Unhandled Rejection:', err.message);
+});
+
+let port = process.env.PORT || 8080;  // ✅ fix port
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
+
 let port = 8080;
 app.listen(port,()=>{
     console.log(`Server listening on port ${port} `);
